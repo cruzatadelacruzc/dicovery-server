@@ -1,4 +1,4 @@
-package com.example.eurekaserver.config;
+package com.example.registryconfig.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

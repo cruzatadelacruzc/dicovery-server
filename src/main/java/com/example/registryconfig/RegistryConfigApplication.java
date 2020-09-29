@@ -1,10 +1,13 @@
-package com.example.eurekaserver;
+package com.example.registryconfig;
 
+import com.example.registryconfig.config.ConfigurationServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
@@ -16,17 +19,19 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-@SpringBootApplication
 @EnableEurekaServer
-public class EurekaServerApplication implements InitializingBean {
-	private static final Logger log = LoggerFactory.getLogger(EurekaServerApplication.class);
+@EnableConfigServer
+@SpringBootApplication
+@EnableConfigurationProperties({ConfigurationServerConfig.class})
+public class RegistryConfigApplication implements InitializingBean {
+	private static final Logger log = LoggerFactory.getLogger(RegistryConfigApplication.class);
 
 	private static final String PROFILE_DEV = "dev";
 	private static final String PROFILE_PROD = "prod";
 
 	private final Environment env;
 
-	public EurekaServerApplication(Environment env) {
+	public RegistryConfigApplication(Environment env) {
 		this.env = env;
 	}
 
@@ -40,7 +45,7 @@ public class EurekaServerApplication implements InitializingBean {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(EurekaServerApplication.class);
+		SpringApplication app = new SpringApplication(RegistryConfigApplication.class);
 		addDefaultProfile(app);
 		Environment env =  app.run(args).getEnvironment();
 		logApplicationStartup(env);

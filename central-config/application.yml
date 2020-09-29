@@ -1,0 +1,10 @@
+# ===================================================================
+# Sample Spring Cloud Config.
+# ===================================================================
+configserver:
+  name: Registry & Config server
+  status: Connected to the Registry-Config server!
+
+application:
+  registry-config:
+    password: registry-config

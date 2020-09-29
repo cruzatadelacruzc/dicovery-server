@@ -8,8 +8,8 @@
 # ===================================================================
 eureka:
   instance:
-    appname: discovery
-    instanceId: discovery:${spring.application.instance-id:${random.value}}
+    appname: registry-config
+    instanceId: registry-config:${spring.application.instance-id:${random.value}}
     hostname: localhost
     status-page-url-path: ${management.endpoints.web.base-path}/info
     health-check-url-path: ${management.endpoints.web.base-path}/health
@@ -45,12 +45,17 @@ management:
       enabled: false # When using the MailService, configure an SMTP server and set this to true
 
 spring:
+  freemarker:
+    prefer-file-system-access: false # https://stackoverflow.com/questions/56118879/spring-eureka-error-resolving-template-eureka-status-template-might-not-exi
   application:
-    name: discovery
+    name: registry-config
+  messages:
+    basename: i18n/messages
   security:
     user:
       name: admin
-      password: ${EUREKA_USER_PASSWORD:eureka}
+      password: ${EUREKA_USER_PASSWORD:registry-config}
+      roles: ADMIN
 
 server:
   port: ${PORT:8761}
